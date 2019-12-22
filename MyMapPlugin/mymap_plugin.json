@@ -1,0 +1,9 @@
+{
+    "Keys": ["mymap"],
+    "Provider": "mymap",
+    "Version": 100,
+    "Experimental": false,
+    "Features": [
+        "OnlineMappingFeature"
+    ]
+}
