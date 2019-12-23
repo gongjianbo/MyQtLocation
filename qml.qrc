@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>AMyMap.qml</file>
+        <file>MapRuler.qml</file>
+        <file>QuickItemShot.qml</file>
+        <file>AMapRuler.qml</file>
     </qresource>
 </RCC>

@@ -1,34 +1,29 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
-import QtLocation 5.12
-import QtPositioning 5.12
 
-Window {
+ApplicationWindow {
+    id: root_window
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Gong Jian Bo 1992")
 
-    Map {
-        id: the_map
+    Loader{
+        id: root_loader
         anchors.fill: parent
-        minimumZoomLevel: 3
-        maximumZoomLevel: 16
-        zoomLevel: 10
-        center: QtPositioning.coordinate(30.67, 104.06)
+        source: "qrc:/AMyMap.qml"
+    }
 
-        plugin: Plugin {
-            name: "mymap" //"esri" "mapbox" "osm" "here"
-
-            PluginParameter {
-                name: "baseUrl"
-                value: applicationDirPath+"/dianzi_gaode_ArcgisServerTiles/_alllayers"
-            }
-            PluginParameter {
-                name: "format"
-                value: "png"
-            }
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr("DemoList")
+            Action { text: "MyMap"; onTriggered: root_loader.setSource("qrc:/AMyMap.qml"); }
+            MenuSeparator { }
+            Action { text: "MapRuler"; onTriggered: root_loader.setSource("qrc:/AMapRuler.qml"); }
+        }
+        Menu {
+            title: qsTr("QQ交流群:647637553")
         }
     }
 }

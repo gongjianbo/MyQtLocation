@@ -48,7 +48,7 @@ QString GeoTileFetcherMyMap::getUrl(const QGeoTileSpec &spec) const
     const QString yy=QString("%1").arg(spec.y(),8,16,QLatin1Char('0')).toUpper();
     const QString xx=QString("%1").arg(spec.x(),8,16,QLatin1Char('0')).toUpper();
 
-    return QString("file:///%1/L%2/R%3/C%4.%5")
+    return QString("%1/L%2/R%3/C%4.%5")
             .arg(_baseUrl)
             .arg(zz)
             .arg(yy)
