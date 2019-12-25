@@ -21,6 +21,7 @@ ApplicationWindow {
             Action { text: "MyMap"; onTriggered: root_loader.setSource("qrc:/AMyMap.qml"); }
             MenuSeparator { }
             Action { text: "MapRuler"; onTriggered: root_loader.setSource("qrc:/AMapRuler.qml"); }
+            Action { text: "MapArea"; onTriggered: root_loader.setSource("qrc:/AMapArea.qml"); }
         }
         Menu {
             title: qsTr("QQ交流群:647637553")

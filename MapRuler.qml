@@ -7,6 +7,8 @@ import QtPositioning 5.12
 MapItemGroup{
     id: control
 
+    property bool _pathClose: false
+
     MapPolyline {
         id: item_line
         line.color: "red"
@@ -75,9 +77,7 @@ MapItemGroup{
                                 //最后一个全部删除,否则一个一个的删除
                                 //为0的时候发送信号给group请求删除
                                 if(index==item_model.count-1){
-                                    item_line.path=[];
-                                    item_model.clear();
-                                    //control.destroy();
+                                    clearPath();
                                 }else{
                                     item_line.removeCoordinate(index);
                                     item_model.remove(index);
@@ -118,9 +118,15 @@ MapItemGroup{
     }
 
     function closePath(){
+        control._pathClose=true;
         while(item_line.pathLength()>item_model.count){
             item_line.removeCoordinate(item_line.pathLength()-1);
         }
+    }
+
+    function clearPath(){
+        item_line.path=[];
+        item_model.clear();
     }
 }
 
