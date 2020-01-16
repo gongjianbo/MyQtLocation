@@ -4,8 +4,6 @@
 #include <QtLocation/QGeoServiceProvider>
 #include <QtLocation/private/qgeotiledmappingmanagerengine_p.h>
 
-#include <QVector>
-
 QT_BEGIN_NAMESPACE
 
 class GeoTiledMappingManagerEngineMyMap : public QGeoTiledMappingManagerEngine
@@ -18,10 +16,7 @@ public:
             QString *errorString);
     ~GeoTiledMappingManagerEngineMyMap();
 
-    virtual QGeoMap *createMap();
-
-private:
-
+    QGeoMap *createMap() override;
 };
 QT_END_NAMESPACE
 

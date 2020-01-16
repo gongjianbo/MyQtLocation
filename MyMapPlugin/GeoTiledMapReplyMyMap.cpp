@@ -1,7 +1,5 @@
 #include "GeoTiledMapReplyMyMap.h"
 
-#include <QtLocation/private/qgeotilespec_p.h>
-
 QT_BEGIN_NAMESPACE
 GeoTiledMapReplyMyMap::GeoTiledMapReplyMyMap(
         QNetworkReply *reply,

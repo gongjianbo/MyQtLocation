@@ -8,34 +8,31 @@
 #include <QtLocation/private/qgeotiledmap_p.h>
 #include <QtLocation/private/qgeofiletilecache_p.h>
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkDiskCache>
-
 QT_BEGIN_NAMESPACE
 GeoTiledMappingManagerEngineMyMap::GeoTiledMappingManagerEngineMyMap(const QVariantMap &parameters, QGeoServiceProvider::Error *error, QString *errorString)
 {
     QGeoCameraCapabilities cameraCaps;
-        cameraCaps.setMinimumZoomLevel(0.0);
-        cameraCaps.setMaximumZoomLevel(20.0);
-        cameraCaps.setSupportsBearing(true);
-        cameraCaps.setSupportsTilting(true);
-        cameraCaps.setMinimumTilt(0);
-        cameraCaps.setMaximumTilt(80);
-        cameraCaps.setMinimumFieldOfView(20.0);
-        cameraCaps.setMaximumFieldOfView(120.0);
-        cameraCaps.setOverzoomEnabled(true);
-        setCameraCapabilities(cameraCaps);
+    cameraCaps.setMinimumZoomLevel(0.0);
+    cameraCaps.setMaximumZoomLevel(20.0);
+    cameraCaps.setSupportsBearing(true);
+    cameraCaps.setSupportsTilting(true);
+    cameraCaps.setMinimumTilt(0);
+    cameraCaps.setMaximumTilt(80);
+    cameraCaps.setMinimumFieldOfView(20.0);
+    cameraCaps.setMaximumFieldOfView(120.0);
+    cameraCaps.setOverzoomEnabled(true);
+    setCameraCapabilities(cameraCaps);
 
-        setTileSize(QSize(256, 256));
+    setTileSize(QSize(256, 256));
 
-        //setTileCache(tileCache); //这应该是做离线地图的接口
+    //setTileCache(tileCache); //这应该是做离线地图的接口
 
-        GeoTileFetcherMyMap *tileFetcher = new GeoTileFetcherMyMap(parameters, this);
-        setTileFetcher(tileFetcher);
+    GeoTileFetcherMyMap *tileFetcher = new GeoTileFetcherMyMap(parameters, this);
+    setTileFetcher(tileFetcher);
 
-        *error = QGeoServiceProvider::NoError;
-        errorString->clear();
-
+    //m_prefetchStyle = QGeoTiledMap::NoPrefetching;
+    *error = QGeoServiceProvider::NoError;
+    errorString->clear();
 }
 
 GeoTiledMappingManagerEngineMyMap::~GeoTiledMappingManagerEngineMyMap()
@@ -45,6 +42,8 @@ GeoTiledMappingManagerEngineMyMap::~GeoTiledMappingManagerEngineMyMap()
 
 QGeoMap *GeoTiledMappingManagerEngineMyMap::createMap()
 {
-    return new GeoTiledMapMyMap(this);
+    GeoTiledMapMyMap *map=new GeoTiledMapMyMap(this);
+    //map->setPrefetchStyle(m_prefetchStyle);
+    return map;
 }
 QT_END_NAMESPACE

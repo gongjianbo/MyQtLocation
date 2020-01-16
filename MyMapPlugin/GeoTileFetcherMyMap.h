@@ -3,7 +3,6 @@
 
 #include <QtLocation/private/qgeotilefetcher_p.h>
 #include <QNetworkAccessManager>
-#include <QVector>
 
 QT_BEGIN_NAMESPACE
 

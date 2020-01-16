@@ -8,7 +8,7 @@ class GeoTiledMapMyMap : public QGeoTiledMap
 {
     Q_OBJECT
 public:
-    GeoTiledMapMyMap(QGeoTiledMappingManagerEngine *engine, QObject *parent = 0);
+    GeoTiledMapMyMap(QGeoTiledMappingManagerEngine *engine, QObject *parent = nullptr);
 };
 QT_END_NAMESPACE
 
