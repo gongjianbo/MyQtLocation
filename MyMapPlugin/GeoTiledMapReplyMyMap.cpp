@@ -28,9 +28,7 @@ void GeoTiledMapReplyMyMap::networkReplyFinished()
     if (reply->error() != QNetworkReply::NoError) // Already handled in networkReplyError
         return;
 
-    QByteArray a = reply->readAll();
-
-    setMapImageData(a);
+    setMapImageData(reply->readAll());
     setFinished(true);
 }
 

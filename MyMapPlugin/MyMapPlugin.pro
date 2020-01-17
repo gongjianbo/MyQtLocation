@@ -33,14 +33,12 @@ DISTFILES += \
 HEADERS += \
     GeoServiceProviderFactoryMyMap.h \
     GeoTileFetcherMyMap.h \
-    GeoTiledMapMyMap.h \
     GeoTiledMapReplyMyMap.h \
     GeoTiledMappingManagerEngineMyMap.h
 
 SOURCES += \
     GeoServiceProviderFactoryMyMap.cpp \
     GeoTileFetcherMyMap.cpp \
-    GeoTiledMapMyMap.cpp \
     GeoTiledMapReplyMyMap.cpp \
     GeoTiledMappingManagerEngineMyMap.cpp
 

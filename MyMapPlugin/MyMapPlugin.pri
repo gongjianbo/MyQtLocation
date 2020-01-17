@@ -11,18 +11,17 @@ qtHaveModule(positioning-private) {
 QT += network
 
 DISTFILES += \
-    $$PWD/mymap_plugin.json
+    $$PWD/mymap_plugin.json \
+    $$PWD/MyMapPlugin.pro
 
 HEADERS += \
     $$PWD/GeoServiceProviderFactoryMyMap.h \
     $$PWD/GeoTileFetcherMyMap.h \
-    $$PWD/GeoTiledMapMyMap.h \
     $$PWD/GeoTiledMapReplyMyMap.h \
     $$PWD/GeoTiledMappingManagerEngineMyMap.h
 
 SOURCES += \
     $$PWD/GeoServiceProviderFactoryMyMap.cpp \
     $$PWD/GeoTileFetcherMyMap.cpp \
-    $$PWD/GeoTiledMapMyMap.cpp \
     $$PWD/GeoTiledMapReplyMyMap.cpp \
     $$PWD/GeoTiledMappingManagerEngineMyMap.cpp

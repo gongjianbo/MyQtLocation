@@ -34,7 +34,7 @@ QGeoTiledMapReply *GeoTileFetcherMyMap::getTileImage(const QGeoTileSpec &spec)
     //request.setHeader(QNetworkRequest::UserAgentHeader, _userAgent);
     request.setUrl(getUrl(spec));
 
-    qDebug()<<"GeoTileFetcherMyMap::getTileImage"<<request.url();
+    //qDebug()<<"GeoTileFetcherMyMap::getTileImage"<<request.url();
 
     QNetworkReply *reply = _networkManager->get(request);
     return new GeoTiledMapReplyMyMap(reply, spec, _format);

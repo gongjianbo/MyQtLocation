@@ -9,7 +9,10 @@
 #include <QtLocation/private/qgeofiletilecache_p.h>
 
 QT_BEGIN_NAMESPACE
-GeoTiledMappingManagerEngineMyMap::GeoTiledMappingManagerEngineMyMap(const QVariantMap &parameters, QGeoServiceProvider::Error *error, QString *errorString)
+GeoTiledMappingManagerEngineMyMap::GeoTiledMappingManagerEngineMyMap(
+        const QVariantMap &parameters,
+        QGeoServiceProvider::Error *error,
+        QString *errorString)
 {
     QGeoCameraCapabilities cameraCaps;
     cameraCaps.setMinimumZoomLevel(0.0);
@@ -25,10 +28,33 @@ GeoTiledMappingManagerEngineMyMap::GeoTiledMappingManagerEngineMyMap(const QVari
 
     setTileSize(QSize(256, 256));
 
-    //setTileCache(tileCache); //这应该是做离线地图的接口
-
+    //瓦片加载
     GeoTileFetcherMyMap *tileFetcher = new GeoTileFetcherMyMap(parameters, this);
     setTileFetcher(tileFetcher);
+
+    //瓦片缓存-这部分参考QtLocation的esri部分源码
+    //没有用QGeoFileTileCache，默认加载地缓存不会释放，还没找到原因，估计要分析它的源码
+    QString cacheDirectory=QAbstractGeoTileCache::baseLocationCacheDirectory() + QString("mymap");
+    QGeoFileTileCache *tileCache = new QGeoFileTileCache(cacheDirectory,this);
+
+    /*
+     * Disk cache setup -- defaults to ByteSize (old behavior)
+     */
+    tileCache->setCostStrategyDisk(QGeoFileTileCache::ByteSize);
+
+    /*
+     * Memory cache setup -- defaults to ByteSize (old behavior)
+     */
+    tileCache->setCostStrategyMemory(QGeoFileTileCache::ByteSize);
+
+    /*
+     * Texture cache setup -- defaults to ByteSize (old behavior)
+     */
+    tileCache->setCostStrategyTexture(QGeoFileTileCache::ByteSize);
+
+    /* PREFETCHING */
+    m_prefetchStyle = QGeoTiledMap::NoPrefetching;
+    setTileCache(tileCache);
 
     //m_prefetchStyle = QGeoTiledMap::NoPrefetching;
     *error = QGeoServiceProvider::NoError;
@@ -37,13 +63,12 @@ GeoTiledMappingManagerEngineMyMap::GeoTiledMappingManagerEngineMyMap(const QVari
 
 GeoTiledMappingManagerEngineMyMap::~GeoTiledMappingManagerEngineMyMap()
 {
-
 }
 
 QGeoMap *GeoTiledMappingManagerEngineMyMap::createMap()
 {
-    GeoTiledMapMyMap *map=new GeoTiledMapMyMap(this);
-    //map->setPrefetchStyle(m_prefetchStyle);
+    QGeoTiledMap *map=new QGeoTiledMap(this,nullptr);
+    map->setPrefetchStyle(m_prefetchStyle);
     return map;
 }
 QT_END_NAMESPACE
