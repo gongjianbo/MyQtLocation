@@ -1,6 +1,5 @@
 #include "GeoTiledMappingManagerEngineMyMap.h"
 
-#include "GeoTiledMapMyMap.h"
 #include "GeoTileFetcherMyMap.h"
 
 #include <QtLocation/private/qgeocameracapabilities_p.h>
