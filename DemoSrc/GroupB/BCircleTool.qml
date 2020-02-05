@@ -24,7 +24,7 @@ BAbstractTool{
         id: item_closebtn
         visible: control._pathClose
         //上加下减，左加右减，原点左上角
-       // coordinate:
+        // coordinate:
         anchorPoint: Qt.point(-2,sourceItem.height+2)
         sourceItem: Rectangle{
             width: 14
@@ -57,9 +57,11 @@ BAbstractTool{
         if(targetMap){
             if(!control._pathClose){
                 let coord=targetMap.toCoordinate(Qt.point(x,y),false);
-                item_closebtn.coordinate=coord;
-                item_circle.radius=item_circle.center.distanceTo(coord);
-                control._pathClose=true;
+                if(coord!==item_circle.center){
+                    item_closebtn.coordinate=coord;
+                    item_circle.radius=item_circle.center.distanceTo(coord);
+                    control._pathClose=true;
+                }
                 control.finished(); //结束
             }
         }

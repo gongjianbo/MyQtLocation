@@ -60,8 +60,10 @@ BAbstractTool{
         if(targetMap){
             if(!control._pathClose){
                 let coord=targetMap.toCoordinate(Qt.point(x,y),false);
-                item_rect.bottomRight=coord;
-                control._pathClose=true;
+                if(coord!==item_rect.topLeft){
+                    item_rect.bottomRight=coord;
+                    control._pathClose=true;
+                }
                 control.finished(); //结束
             }
         }
