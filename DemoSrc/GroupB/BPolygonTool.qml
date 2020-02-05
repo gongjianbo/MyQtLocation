@@ -28,7 +28,7 @@ BAbstractTool{
     }
     MapQuickItem{
         id: item_closebtn
-        visible: control._pathClose
+        visible: control._pathClose&&control._clickCount>2
         anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
         sourceItem: Rectangle{
             width: 14
