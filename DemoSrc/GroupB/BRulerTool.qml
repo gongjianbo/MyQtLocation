@@ -6,10 +6,17 @@ import QtPositioning 5.12
 BAbstractTool{
     id: control
 
+    //标签样式暂时没管
+    property color lineColor: "red"
+    property int lineWidth: 2
+    property color pointColor: lineColor
+    property int pointWidth: lineWidth
+
+    //点的连线
     MapPolyline {
         id: item_line
-        line.color: "red"
-        line.width: 2
+        line.color: control.lineColor
+        line.width: control.lineWidth
         //平滑后放大有点卡
         //layer.enabled: true
         //layer.smooth: true
@@ -23,6 +30,7 @@ BAbstractTool{
         }
     }
 
+    //每个点的标签
     MapItemView{
         id: item_view
         add: Transition {}
@@ -37,8 +45,8 @@ BAbstractTool{
                 height: 14
                 radius: 7
                 color: "white"
-                border.width: 2
-                border.color: "red"
+                border.width: control.pointWidth
+                border.color: control.pointColor
                 Rectangle{
                     anchors.left: parent.right
                     anchors.top: parent.bottom
