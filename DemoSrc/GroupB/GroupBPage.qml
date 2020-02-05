@@ -26,9 +26,15 @@ Item {
             }
             onClicked: map.switchComp(ruler_comp);
         }
-        /*RadioButton {
-                text: qsTr("Area")
-            }*/
+        RadioButton {
+            text: qsTr("Area")
+            Component{
+                id: area_comp
+                BAreaTool{
+                }
+            }
+            onClicked: map.switchComp(area_comp);
+        }
     }
 
     BMap{

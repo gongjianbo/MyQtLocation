@@ -4,5 +4,6 @@
         <file>GroupBPage.qml</file>
         <file>BRulerTool.qml</file>
         <file>BAbstractTool.qml</file>
+        <file>BAreaTool.qml</file>
     </qresource>
 </RCC>
