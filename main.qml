@@ -7,12 +7,12 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Gong Jian Bo 1992【QQ交流群:647637553】")
+    title: qsTr("【QQ交流群:647637553】"+root_loader.source)
 
     Loader{
         id: root_loader
         anchors.fill: parent
-        source: "qrc:/AMyMap.qml"
+        source: "qrc:/GroupBPage.qml"
     }
 
     menuBar: MenuBar {
@@ -25,7 +25,7 @@ ApplicationWindow {
         }
         Menu {
             title: qsTr("GroupB")
-
+            Action { text: "GroupBPage"; onTriggered: root_loader.setSource("qrc:/GroupBPage.qml"); }
         }
     }
 }

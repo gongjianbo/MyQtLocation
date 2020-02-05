@@ -1,2 +1,8 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/">
+        <file>BMap.qml</file>
+        <file>GroupBPage.qml</file>
+        <file>BRulerTool.qml</file>
+        <file>BAbstractTool.qml</file>
+    </qresource>
+</RCC>
