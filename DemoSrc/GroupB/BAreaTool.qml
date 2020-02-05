@@ -7,6 +7,7 @@ BAbstractTool{
     id: control
 
     property bool _pathClose: false
+    property int _clickCount: 0
     property double _areaValue: 0
     //标签样式暂时没管
     property color areaColor: Qt.rgba(0,1,0,0.4)
@@ -29,77 +30,47 @@ BAbstractTool{
         line.width: control.borderWidth
         line.color: control.borderColor
     }
-
-    MapItemView{
-        id: item_view
-        add: Transition {}
-        remove: Transition {}
-        model: ListModel{
-            id: item_model
-        }
-        delegate: MapQuickItem{
-            id: ietm_delegate
-            sourceItem: Rectangle {
-                width: control.pointSize
-                height: control.pointSize
-                radius: control.pointSize/2
-                color: "white"
-                border.width: control.borderWidth
-                border.color: control.borderColor
-                //Component.onDestruction: console.log("destory item");
-
-                Loader{
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.bottom
-                    anchors.margins: 5
-                    sourceComponent: (_pathClose&&index==(item_model.count-1))?area_comp:null_comp
-                }
-            }
-            //通过listmodel来设置数据
-            coordinate{
-                latitude: latitudeval
-                longitude: longitudeval
-            }
-            anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
-        }
-    }
-
-    Component{
-        id: null_comp
-        Item{}
-    }
-    Component{
-        id: area_comp
-        Rectangle{
-            width: area_text.width+5+5+14+5
-            height: area_text.height+10
-            border.color: "gray"
+    MapQuickItem{
+        id: item_closebtn
+        visible: control._pathClose&&control._clickCount>2
+        //上加下减，左加右减，原点左上角
+        anchorPoint: Qt.point(-2,sourceItem.height+2)
+        sourceItem: Rectangle{
+            width: 14
+            height: 14
+            border.color: "red"
             Text {
-                id: area_text
-                x: 5
-                anchors.verticalCenter: parent.verticalCenter
+                color: "red"
+                anchors.centerIn: parent
+                text: "+"
+                rotation: 45
+            }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: clearPath();
+            }
+        }
+    }
+    MapQuickItem{
+        id: item_text
+        visible: control._pathClose&&control._clickCount>2
+        anchorPoint: Qt.point(sourceItem.width/2,sourceItem.height/2)
+        sourceItem:Rectangle{
+            width: 10
+            height: 10
+            color: "transparent"
+            Text {
+                anchors.centerIn: parent
                 text: control._areaValue+" m^2"
-            }
-            Rectangle{
-                width: 14
-                height: 14
-                anchors.right: parent.right
-                anchors.rightMargin: 5
-                anchors.verticalCenter: parent.verticalCenter
-                border.color: "red"
-                Text {
-                    color: "red"
-                    anchors.centerIn: parent
-                    text: "+"
-                    rotation: 45
+                color: "red"
+                font{
+                    //family: "SimHei"
+                    pixelSize: 20
+                    weight: Font.Bold
                 }
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        clearPath();
-                    }
-                }
+                //renderType: Text.NativeRendering
             }
+
         }
     }
 
@@ -124,14 +95,14 @@ BAbstractTool{
     }
 
     function appendPoint(coord){
-        item_model.append({"latitudeval":coord.latitude,"longitudeval":coord.longitude});
         item_line.addCoordinate(coord);
+        _clickCount+=1;
     }
 
     function followMouse(coord){
         if(item_line.pathLength()<=0)
             return;
-        if(item_line.pathLength()===item_model.count){
+        if(item_line.pathLength()===_clickCount){
             item_line.addCoordinate(coord);
         }else{
             item_line.replaceCoordinate(item_line.pathLength()-1,coord);
@@ -140,7 +111,7 @@ BAbstractTool{
 
     function closePath(){
         control._pathClose=true;
-        while(item_line.pathLength()>item_model.count){
+        while(item_line.pathLength()>_clickCount){
             item_line.removeCoordinate(item_line.pathLength()-1);
         }
         if(item_line.pathLength()<3){
@@ -148,12 +119,14 @@ BAbstractTool{
             return;
         }
         control._areaValue=getPolygonArea(item_line.path);
+        item_text.coordinate=getPolygonCenter(item_line.path);
+        item_closebtn.coordinate=item_line.path[item_line.pathLength()-1];
         item_line.addCoordinate(item_line.path[0]);
     }
 
     function clearPath(){
         item_line.path=[];
-        item_model.clear();
+        _clickCount=0;
     }
 
     //计算方式1：https://www.cnblogs.com/c-w20140301/p/10308431.html
@@ -205,5 +178,34 @@ BAbstractTool{
         area_count+=eee*path[0].latitude*c-k*g2;
 
         return Math.round(Math.abs(area_count)/2);
+    }
+
+    //计算区域中心点
+    //参考：https://blog.csdn.net/yl2isoft/article/details/16368397
+    function getPolygonCenter(path){
+        let path_len=path.length;
+        if(path_len<3)
+            return QtPositioning.coordinate(0,0);
+        let X=0;
+        let Y=0;
+        let Z=0;
+        let lat,lon,x,y,z;
+        for(let i=0;i<path_len;i++){
+            lat = path[i].latitude * Math.PI / 180;
+            lon = path[i].longitude * Math.PI / 180;
+            x = Math.cos(lat) * Math.cos(lon);
+            y = Math.cos(lat) * Math.sin(lon);
+            z = Math.sin(lat);
+            X += x;
+            Y += y;
+            Z += z;
+        }
+        X = X / path_len;
+        Y = Y / path_len;
+        Z = Z / path_len;
+        let Lon = Math.atan2(Y, X);
+        let Hyp = Math.sqrt(X * X + Y * Y);
+        let Lat = Math.atan2(Z, Hyp);
+        return QtPositioning.coordinate(Lat * 180 / Math.PI, Lon * 180 / Math.PI);
     }
 }
