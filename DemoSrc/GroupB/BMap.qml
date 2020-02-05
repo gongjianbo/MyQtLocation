@@ -32,17 +32,27 @@ Map {
         anchors.fill: parent
         enabled: control.currentComp!=null
         hoverEnabled: true
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onClicked: {
-            if(!control.currentTool&&control.currentComp)
-                control.createTool();
-            if(control.currentTool)
-                control.currentTool.clicked(mouseX,mouseY);
+            //左键点击为功能，右键取消
+            if(mouse.button===Qt.LeftButton){
+                if(!control.currentTool&&control.currentComp)
+                    control.createTool();
+                if(control.currentTool)
+                    control.currentTool.clicked(mouseX,mouseY);
+            }else{
+                control.destroyTool();
+            }
         }
         onDoubleClicked: {
-            if(control.currentTool)
-                control.currentTool.doubleClicked(mouseX,mouseY);
-            control.closeTool();
+            if(mouse.button===Qt.LeftButton){
+                if(control.currentTool)
+                    control.currentTool.doubleClicked(mouseX,mouseY);
+                control.closeTool();
+            }else{
+                control.destroyTool();
+            }
         }
         onPositionChanged: {
             if(control.currentTool)
@@ -75,5 +85,14 @@ Map {
     function closeTool(){
         //console.log("close tool")
         control.currentTool=null;
+    }
+
+    //相当于取消操作
+    function destroyTool(){
+        if(control.currentTool){
+            //为什么不销毁而是隐藏？销毁的操作后面再设计！
+            control.currentTool.visible=false;
+        }
+        closeTool();
     }
 }
