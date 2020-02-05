@@ -35,6 +35,15 @@ Item {
             }
             onClicked: map.switchComp(area_comp);
         }
+        RadioButton {
+            text: qsTr("Polygon")
+            Component{
+                id: polygon_comp
+                BPolygonTool{
+                }
+            }
+            onClicked: map.switchComp(polygon_comp);
+        }
     }
 
     BMap{

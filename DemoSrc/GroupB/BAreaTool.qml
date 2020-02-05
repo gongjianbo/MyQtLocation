@@ -12,6 +12,9 @@ BAbstractTool{
     property color areaColor: Qt.rgba(0,1,0,0.4)
     property color borderColor: "red"
     property int borderWidth: 1
+    property color pointColor: borderColor
+    property int pointWidth: borderWidth
+    property int pointSize: 14
 
     //MapPolygon很多方法没有，所以拿MapPolyline来记录坐标点
     //优化的话自定义cpp类型
@@ -37,12 +40,12 @@ BAbstractTool{
         delegate: MapQuickItem{
             id: ietm_delegate
             sourceItem: Rectangle {
-                width: 14
-                height: 14
-                radius: 7
+                width: control.pointSize
+                height: control.pointSize
+                radius: control.pointSize/2
                 color: "white"
-                border.width: 2
-                border.color: "red"
+                border.width: control.borderWidth
+                border.color: control.borderColor
                 //Component.onDestruction: console.log("destory item");
 
                 Loader{

@@ -11,6 +11,7 @@ BAbstractTool{
     property int lineWidth: 2
     property color pointColor: lineColor
     property int pointWidth: lineWidth
+    property int pointSize: 14
 
     //点的连线
     MapPolyline {
@@ -41,9 +42,9 @@ BAbstractTool{
         delegate: MapQuickItem{
             id: ietm_delegate
             sourceItem: Rectangle {
-                width: 14
-                height: 14
-                radius: 7
+                width: control.pointSize
+                height: control.pointSize
+                radius: control.pointSize/2
                 color: "white"
                 border.width: control.pointWidth
                 border.color: control.pointColor
