@@ -20,7 +20,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    DemoSrc/GroupA/GroupA.qrc \
+    DemoSrc/GroupB/GroupB.qrc
 
 DEFINES += MyMapPlugin_Static
 

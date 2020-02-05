@@ -7,7 +7,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Gong Jian Bo 1992")
+    title: qsTr("Gong Jian Bo 1992【QQ交流群:647637553】")
 
     Loader{
         id: root_loader
@@ -17,14 +17,15 @@ ApplicationWindow {
 
     menuBar: MenuBar {
         Menu {
-            title: qsTr("DemoList")
+            title: qsTr("GroupA")
             Action { text: "MyMap"; onTriggered: root_loader.setSource("qrc:/AMyMap.qml"); }
             MenuSeparator { }
             Action { text: "MapRuler"; onTriggered: root_loader.setSource("qrc:/AMapRuler.qml"); }
             Action { text: "MapArea"; onTriggered: root_loader.setSource("qrc:/AMapArea.qml"); }
         }
         Menu {
-            title: qsTr("QQ交流群:647637553")
+            title: qsTr("GroupB")
+
         }
     }
 }
