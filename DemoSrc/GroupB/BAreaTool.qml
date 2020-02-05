@@ -106,18 +106,19 @@ BAbstractTool{
     //抽象类中转发信号
     onClicked: {
         if(targetMap){
-            var coord=targetMap.toCoordinate(Qt.point(x,y),false);
+            let coord=targetMap.toCoordinate(Qt.point(x,y),false);
             control.appendPoint(coord);
         }
     }
     onDoubleClicked: {
         if(targetMap){
             control.closePath();
+            control.finished(); //结束
         }
     }
     onPositionChanged: {
         if(targetMap){
-            var coord=targetMap.toCoordinate(Qt.point(x,y),false);
+            let coord=targetMap.toCoordinate(Qt.point(x,y),false);
             control.followMouse(coord);
         }
     }

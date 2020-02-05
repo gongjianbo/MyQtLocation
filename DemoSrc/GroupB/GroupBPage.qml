@@ -44,6 +44,15 @@ Item {
             }
             onClicked: map.switchComp(polygon_comp);
         }
+        RadioButton {
+            text: qsTr("Rectangle")
+            Component{
+                id: rectangle_comp
+                BRectangleTool{
+                }
+            }
+            onClicked: map.switchComp(rectangle_comp);
+        }
     }
 
     BMap{

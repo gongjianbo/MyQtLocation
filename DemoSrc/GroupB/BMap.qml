@@ -33,12 +33,15 @@ Map {
         enabled: control.currentComp!=null
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+        //preventStealing为true则事件不会被偷取，默认false
+        preventStealing: false
 
         onClicked: {
             //左键点击为功能，右键取消
             if(mouse.button===Qt.LeftButton){
-                if(!control.currentTool&&control.currentComp)
-                    control.createTool();
+                //release后才有click
+                /*if(!control.currentTool&&control.currentComp)
+                    control.createTool();*/
                 if(control.currentTool)
                     control.currentTool.clicked(mouseX,mouseY);
             }else{
@@ -49,7 +52,6 @@ Map {
             if(mouse.button===Qt.LeftButton){
                 if(control.currentTool)
                     control.currentTool.doubleClicked(mouseX,mouseY);
-                control.closeTool();
             }else{
                 control.destroyTool();
             }
@@ -57,6 +59,20 @@ Map {
         onPositionChanged: {
             if(control.currentTool)
                 control.currentTool.positionChanged(mouseX,mouseY);
+        }
+        onPressed: {
+            if(mouse.button===Qt.LeftButton){
+                if(!control.currentTool&&control.currentComp)
+                    control.createTool();
+                if(control.currentTool)
+                    control.currentTool.pressed(mouseX,mouseY);
+            }else{
+                control.destroyTool();
+            }
+        }
+        onReleased: {
+            if(control.currentTool)
+                control.currentTool.released(mouseX,mouseY);
         }
     }
 
@@ -77,7 +93,12 @@ Map {
         if(new_tool){
             control.currentTool=new_tool;
             control.currentTool.targetMap=map;
+            //使用finished信号来确认操作结束
+            control.currentTool.finished.connect(control.closeTool)
+            //添加到map中显示
             map.addMapItemGroup(control.currentTool);
+            //事件偷取
+            map_mousearea.preventStealing=control.currentTool.preventStealing;
         }
     }
 
@@ -85,10 +106,13 @@ Map {
     function closeTool(){
         //console.log("close tool")
         control.currentTool=null;
+        //事件偷取
+        map_mousearea.preventStealing=false;
     }
 
     //相当于取消操作
     function destroyTool(){
+        //console.log("destroy tool")
         if(control.currentTool){
             //为什么不销毁而是隐藏？销毁的操作后面再设计！
             control.currentTool.visible=false;

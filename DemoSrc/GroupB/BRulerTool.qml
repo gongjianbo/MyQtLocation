@@ -23,8 +23,8 @@ BAbstractTool{
         //layer.smooth: true
         //layer.samples: 8
         function getDistanceCount(){
-            var distance_count=0;
-            for(var i=1;i<pathLength();i++){
+            let distance_count=0;
+            for(let i=1;i<pathLength();i++){
                 distance_count+=item_line.coordinateAt(i).distanceTo(item_line.coordinateAt(i-1));
             }
             return Math.round(distance_count);
@@ -107,24 +107,25 @@ BAbstractTool{
     //抽象类中转发信号
     onClicked: {
         if(targetMap){
-            var coord=targetMap.toCoordinate(Qt.point(x,y),false);
+            let coord=targetMap.toCoordinate(Qt.point(x,y),false);
             control.appendPoint(coord);
         }
     }
     onDoubleClicked: {
         if(targetMap){
             control.closePath();
+            control.finished(); //结束
         }
     }
     onPositionChanged: {
         if(targetMap){
-            var coord=targetMap.toCoordinate(Qt.point(x,y),false);
+            let coord=targetMap.toCoordinate(Qt.point(x,y),false);
             control.followMouse(coord);
         }
     }
 
     function appendPoint(coord){
-        //var coord=the_map.toCoordinate(Qt.point(mouseX,mouseY),false);
+        //let coord=the_map.toCoordinate(Qt.point(mouseX,mouseY),false);
         //console.log("area",coord.latitude,coord.longitude);
         item_model.append({"latitudeval":coord.latitude,"longitudeval":coord.longitude});
         item_line.addCoordinate(coord);

@@ -6,10 +6,18 @@ import QtPositioning 5.12
 MapItemGroup {
     id:control
 
+    //用于MouseArea，如果为true，则事件不会被偷取
+    property bool preventStealing: false
+    //用于计算
     property Map targetMap: null
 
-    //对应MouseArea的信号
+    //对应MouseArea的信号，传递给派生类
     signal clicked(int x,int y);
     signal doubleClicked(int x,int y);
     signal positionChanged(int x,int y);
+    signal pressed(int x,int y);
+    signal released(int x,int y);
+
+    //传递给外部，用来指定操作结束
+    signal finished();
 }

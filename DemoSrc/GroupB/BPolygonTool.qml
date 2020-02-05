@@ -29,7 +29,8 @@ BAbstractTool{
     MapQuickItem{
         id: item_closebtn
         visible: control._pathClose&&control._clickCount>2
-        anchorPoint: Qt.point(sourceItem.width/2, sourceItem.height/2)
+        //上加下减，左加右减，原点左上角
+        anchorPoint: Qt.point(-2,sourceItem.height+2)
         sourceItem: Rectangle{
             width: 14
             height: 14
@@ -50,18 +51,19 @@ BAbstractTool{
     //抽象类中转发信号
     onClicked: {
         if(targetMap){
-            var coord=targetMap.toCoordinate(Qt.point(x,y),false);
+            let coord=targetMap.toCoordinate(Qt.point(x,y),false);
             control.appendPoint(coord);
         }
     }
     onDoubleClicked: {
         if(targetMap){
             control.closePath();
+            control.finished(); //结束
         }
     }
     onPositionChanged: {
         if(targetMap){
-            var coord=targetMap.toCoordinate(Qt.point(x,y),false);
+            let coord=targetMap.toCoordinate(Qt.point(x,y),false);
             control.followMouse(coord);
         }
     }
