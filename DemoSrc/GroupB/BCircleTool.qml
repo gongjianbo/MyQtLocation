@@ -13,8 +13,8 @@ BAbstractTool{
     property color borderColor: "red"
     property int borderWidth: 1
 
-    MapRectangle{
-        id: item_rect
+    MapCircle{
+        id: item_circle
         border.width: control.borderWidth
         border.color: control.borderColor
         color: control.areaColor
@@ -24,10 +24,7 @@ BAbstractTool{
         id: item_closebtn
         visible: control._pathClose
         //上加下减，左加右减，原点左上角
-        coordinate: QtPositioning.coordinate(
-                        item_rect.topLeft.latitude,
-                        item_rect.bottomRight.longitude
-                        )
+       // coordinate:
         anchorPoint: Qt.point(-2,sourceItem.height+2)
         sourceItem: Rectangle{
             width: 14
@@ -52,7 +49,7 @@ BAbstractTool{
         if(targetMap){
             if(!control._pathClose){
                 let coord=targetMap.toCoordinate(Qt.point(x,y),false);
-                item_rect.topLeft=coord;
+                item_circle.center=coord;
             }
         }
     }
@@ -60,7 +57,8 @@ BAbstractTool{
         if(targetMap){
             if(!control._pathClose){
                 let coord=targetMap.toCoordinate(Qt.point(x,y),false);
-                item_rect.bottomRight=coord;
+                item_closebtn.coordinate=coord;
+                item_circle.radius=item_circle.center.distanceTo(coord);
                 control._pathClose=true;
                 control.finished(); //结束
             }
@@ -70,7 +68,7 @@ BAbstractTool{
         if(targetMap){
             if(!control._pathClose){
                 let coord=targetMap.toCoordinate(Qt.point(x,y),false);
-                item_rect.bottomRight=coord;
+                item_circle.radius=item_circle.center.distanceTo(coord);
             }
         }
     }

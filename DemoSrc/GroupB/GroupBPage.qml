@@ -53,6 +53,15 @@ Item {
             }
             onClicked: map.switchComp(rectangle_comp);
         }
+        RadioButton {
+            text: qsTr("Circle")
+            Component{
+                id: circle_comp
+                BCircleTool{
+                }
+            }
+            onClicked: map.switchComp(circle_comp);
+        }
     }
 
     BMap{

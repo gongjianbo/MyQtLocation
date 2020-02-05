@@ -7,5 +7,6 @@
         <file>BAreaTool.qml</file>
         <file>BPolygonTool.qml</file>
         <file>BRectangleTool.qml</file>
+        <file>BCircleTool.qml</file>
     </qresource>
 </RCC>
