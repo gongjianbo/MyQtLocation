@@ -62,6 +62,26 @@ Item {
             }
             onClicked: map.switchComp(circle_comp);
         }
+        RadioButton {
+            text: qsTr("Mark")
+            Component{
+                id: mark_comp
+                BMarkTool{
+                    id: mark_tool
+                    property color color: Qt.hsla(Math.random(),0.9,0.4,1);
+                    itemDelegate: Rectangle {
+                        width: 14
+                        height: 14
+                        radius: 7
+                        //随机颜色
+                        color: mark_tool.color
+                    }
+                }
+            }
+            onClicked: {
+                map.switchComp(mark_comp);
+            }
+        }
     }
 
     BMap{

@@ -8,5 +8,6 @@
         <file>BPolygonTool.qml</file>
         <file>BRectangleTool.qml</file>
         <file>BCircleTool.qml</file>
+        <file>BMarkTool.qml</file>
     </qresource>
 </RCC>

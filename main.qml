@@ -5,8 +5,8 @@ import QtQuick.Controls 2.12
 ApplicationWindow {
     id: root_window
     visible: true
-    width: 640
-    height: 480
+    width: 720
+    height: 500
     title: qsTr("【QQ交流群:647637553】"+root_loader.source)
 
     Loader{
