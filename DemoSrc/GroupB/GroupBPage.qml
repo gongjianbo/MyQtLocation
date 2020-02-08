@@ -78,9 +78,7 @@ Item {
                     }
                 }
             }
-            onClicked: {
-                map.switchComp(mark_comp);
-            }
+            onClicked: map.switchComp(mark_comp);
         }
     }
 

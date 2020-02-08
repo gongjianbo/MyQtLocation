@@ -78,7 +78,8 @@ Map {
 
     //相当于切换操作类型/模式，null的话就是浏览地图没操作
     function switchComp(tool_comp){
-        //console.log("switch comp")
+        if(control.currentComp)
+            closeTool();
         control.currentComp=tool_comp;
         if(!control.currentComp)
             closeTool();
