@@ -12,7 +12,7 @@ Item{
     // 2:截图
     // 3:面积
     property int mapMode: 0
-    property MapArea currentArea: null
+    property AAreaTool currentArea: null
 
     property alias map: the_map
     clip: true
@@ -131,7 +131,7 @@ Item{
 
     Component{
         id: area_comp
-        MapArea{
+        AAreaTool{
 
         }
     }

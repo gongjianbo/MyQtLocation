@@ -11,7 +11,7 @@ Item{
     // 1:测距
     // 2:截图
     property int mapMode: 0
-    property MapRuler currentRuler: null
+    property ARulerTool currentRuler: null
 
     property alias map: the_map
     clip: true
@@ -142,7 +142,7 @@ Item{
 
     Component{
         id: ruler_comp
-        MapRuler{
+        ARulerTool{
 
         }
     }

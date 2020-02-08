@@ -6,6 +6,8 @@
 #include <QtPlugin>
 #endif
 
+#include  "DemoSrc/GroupA/BoundaryModel.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -18,6 +20,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    qmlRegisterType<BoundaryModel>("MyMap", 1, 0, "BoundaryModel");
     engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

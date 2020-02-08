@@ -22,6 +22,8 @@ ApplicationWindow {
             MenuSeparator { }
             Action { text: "MapRuler"; onTriggered: root_loader.setSource("qrc:/AMapRuler.qml"); }
             Action { text: "MapArea"; onTriggered: root_loader.setSource("qrc:/AMapArea.qml"); }
+            Action { text: "MapBoundary1"; onTriggered: root_loader.setSource("qrc:/AMapBoundary1.qml"); }
+            Action { text: "MapBoundary2"; onTriggered: root_loader.setSource("qrc:/AMapBoundary2.qml"); }
         }
         Menu {
             title: qsTr("GroupB")
