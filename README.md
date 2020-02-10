@@ -8,9 +8,13 @@ Qt Location custom plugin,map tiles can be loaded.
 
 1.Tested at Qt5.12+MSVC2017/2019. 测试环境为Qt5.12+MSVC2017及MSVC2019
 
-2.In MinGW, location and control2 cannot be mixed.在MinGW中，不能把location和control2混用
+2.Using ArcGIS Server to organize tiles. 瓦片图片使用ArcGIS Server组织方式
 
-3.In MinGW, Map cannot be loaded with QQuickWidget.在MinGW中，不能用QQuickWidget加载Map
+3.After testing, the tiles of Google-maps and GaoDe-maps are available, but the tiles of Baidu-maps are not organized in the same way. 经测试，谷歌地图和高德地图的瓦片可用，但是百度地图的瓦片组织方式不一样，用百度地图需要改下加载的路径拼接
+
+4.In MinGW, location and control2 cannot be mixed. 在MinGW中，不能把location和control2混用
+
+5.In MinGW, Map cannot be loaded with QQuickWidget. 在MinGW中，不能用QQuickWidget加载Map
 
 # Reference（参考）
 
@@ -19,4 +23,6 @@ Qt Location custom plugin,map tiles can be loaded.
 2.https://github.com/vladest/googlemaps
 
 3.https://github.com/wangpengcheng/OfflineMapTest
+
+4.百度和高德瓦片组织方式 https://blog.csdn.net/qq_28459505/article/details/83176577
 
