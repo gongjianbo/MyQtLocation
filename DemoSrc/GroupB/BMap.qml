@@ -79,17 +79,17 @@ Map {
     //相当于切换操作类型/模式，null的话就是浏览地图没操作
     function switchComp(tool_comp){
         if(control.currentComp)
-            closeTool();
+             control.destroyTool();
         control.currentComp=tool_comp;
         if(!control.currentComp)
-            closeTool();
+            control.closeTool();
     }
 
     //相当于一次操作开始
     function createTool(){
         //console.log("create tool")
         if(control.currentTool)
-            closeTool();
+            control.closeTool();
         let new_tool=control.currentComp.createObject(map);
         if(new_tool){
             control.currentTool=new_tool;
@@ -118,6 +118,6 @@ Map {
             //为什么不销毁而是隐藏？销毁的操作后面再设计！
             control.currentTool.visible=false;
         }
-        closeTool();
+        control.closeTool();
     }
 }
