@@ -16,6 +16,8 @@ Qt Location custom plugin,map tiles can be loaded.
 
 5.In MinGW, Map cannot be loaded with QQuickWidget. 在MinGW中，不能用QQuickWidget加载Map
 
+6.When you switch focus, the map will have white blocks. You can set the transparency of the map or the parent item to 0.99. 切换焦点时，地图会有白块，可将地图或上级Item设置透明度为0.99
+
 # Reference（参考）
 
 1.Qt官方文档及源码 https://doc.qt.io/qt-5/qtlocation-geoservices.html
