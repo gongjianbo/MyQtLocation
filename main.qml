@@ -13,6 +13,7 @@ ApplicationWindow {
         id: root_loader
         anchors.fill: parent
         source: "qrc:/GroupBPage.qml"
+        opacity: 0.99
     }
 
     menuBar: MenuBar {
