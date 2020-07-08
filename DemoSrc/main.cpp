@@ -6,7 +6,7 @@
 #include <QtPlugin>
 #endif
 
-#include  "DemoSrc/GroupA/BoundaryModel.h"
+#include  "GroupA/BoundaryModel.h"
 
 int main(int argc, char *argv[])
 {
