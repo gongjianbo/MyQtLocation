@@ -1,3 +1,9 @@
+# Warning (2021-6-1)
+
+It will be rewritten in the near future to solve some remaining problems. Now it's just demo.
+
+近期将重写，解决一些遗留问题，目前只是 Demo。
+
 # MyQtLocation
 
 Qt Location custom plugin,map tiles can be loaded.
