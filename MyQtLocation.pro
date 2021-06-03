@@ -1,31 +1,16 @@
-# exe dir
-DESTDIR  += $$PWD/App
+TEMPLATE = subdirs
 
-INCLUDEPATH += $$PWD/DemoSrc
-include($$PWD/DemoSrc/DemoSrc.pri)
+SUBDIRS += \
+    MyMapPlugin \
+    AppUI
 
-DEFINES += QT_DEPRECATED_WARNINGS
+AppUI.depends += MyMapPlugin
 
-# using static plugin at demo
-DEFINES += MyMapPlugin_Static
-contains(DEFINES,MyMapPlugin_Static){
-    INCLUDEPATH += $$PWD/MyMapPlugin
-    include($$PWD/MyMapPlugin/MyMapPlugin.pri)
-
-    LOCATION_PLUGIN_DESTDIR = $${OUT_PWD}/MyMapPlugin
-    LOCATION_PLUGIN_NAME    = GeoServiceProviderFactoryMyMap
+lessThan(QT_MAJOR_VERSION, 5) | lessThan(QT_MINOR_VERSION, 12) {
+    error("Qt version too low, minimum support Qt 5.12.")
+}else{
+    message(Qt version: $$QT_VERSION)
 }
-
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
-# Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
     LICENSE \
