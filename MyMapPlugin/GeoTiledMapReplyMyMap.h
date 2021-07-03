@@ -1,10 +1,14 @@
-#ifndef GEOTILEDMAPREPLYMYMAP_H
-#define GEOTILEDMAPREPLYMYMAP_H
-
+#pragma once
 #include <QtNetwork/QNetworkReply>
 #include <QtLocation/private/qgeotiledmapreply_p.h>
 
 QT_BEGIN_NAMESPACE
+
+/**
+ * @brief 处理请求的相应
+ * @author 龚建波
+ * @date 2021-07-03
+ */
 class GeoTiledMapReplyMyMap: public QGeoTiledMapReply
 {
     Q_OBJECT
@@ -19,4 +23,3 @@ private Q_SLOTS:
 };
 QT_END_NAMESPACE
 
-#endif // GEOTILEDMAPREPLYMYMAP_H

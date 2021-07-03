@@ -26,9 +26,15 @@ else{
     TARGET = MyQtLocation
 }
 
-#lib
-INCLUDEPATH += $$PWD/../MyMapPlugin
-DEPENDPATH += $$PWD/../MyMapPlugin
+# using static plugin at demo
+DEFINES += MyMapPlugin_Static
+contains(DEFINES,MyMapPlugin_Static){
+    INCLUDEPATH += $$PWD/../MyMapPlugin
+    include($$PWD/../MyMapPlugin/MyMapPlugin.pri)
+
+    LOCATION_PLUGIN_DESTDIR = $${OUT_PWD}/MyMapPlugin
+    LOCATION_PLUGIN_NAME    = MyMapFactory
+}
 
 DEFINES += QT_DEPRECATED_WARNINGS
 

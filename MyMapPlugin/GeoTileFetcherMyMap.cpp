@@ -1,12 +1,11 @@
 #include "GeoTileFetcherMyMap.h"
-
 #include "GeoTiledMapReplyMyMap.h"
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtLocation/private/qgeotilespec_p.h>
 #include <QtLocation/private/qgeotilefetcher_p_p.h>
-
+#include <QUrl>
 #include <QDebug>
 
 QT_BEGIN_NAMESPACE
@@ -15,15 +14,15 @@ GeoTileFetcherMyMap::GeoTileFetcherMyMap(
         const QVariantMap &parameters,
         QGeoMappingManagerEngine *parent)
     : QGeoTileFetcher(parent)
-    , _networkManager(new QNetworkAccessManager(this))
+    , networkManager(new QNetworkAccessManager(this))
 {
     //链接地址
-    if(parameters.contains("baseUrl")){
-        _baseUrl=parameters.value("baseUrl").toString();
+    if(parameters.contains("mapPath")){
+        mapUrl=QUrl::fromLocalFile(parameters.value("mapPath").toString()).toString();
     }
     //瓦片图片格式
     if(parameters.contains("format")){
-        _format=parameters.value("format").toString();
+        format=parameters.value("format").toString();
     }
 }
 
@@ -36,8 +35,8 @@ QGeoTiledMapReply *GeoTileFetcherMyMap::getTileImage(const QGeoTileSpec &spec)
 
     //qDebug()<<"GeoTileFetcherMyMap::getTileImage"<<request.url();
 
-    QNetworkReply *reply = _networkManager->get(request);
-    return new GeoTiledMapReplyMyMap(reply, spec, _format);
+    QNetworkReply *reply = networkManager->get(request);
+    return new GeoTiledMapReplyMyMap(reply, spec, format);
 }
 
 QString GeoTileFetcherMyMap::getUrl(const QGeoTileSpec &spec) const
@@ -49,11 +48,11 @@ QString GeoTileFetcherMyMap::getUrl(const QGeoTileSpec &spec) const
     const QString xx=QString("%1").arg(spec.x(),8,16,QLatin1Char('0')).toUpper();
 
     return QString("%1/L%2/R%3/C%4.%5")
-            .arg(_baseUrl)
+            .arg(mapUrl)
             .arg(zz)
             .arg(yy)
             .arg(xx)
-            .arg(_format);
+            .arg(format);
 }
 
 QT_END_NAMESPACE

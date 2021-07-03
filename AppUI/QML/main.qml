@@ -11,7 +11,7 @@ Window {
     height: 480
     title: qsTr("My Qt Location (by: 龚建波)")
 
-    Map{
+    Map {
         id: the_map
         anchors.fill: parent
         minimumZoomLevel: 3
@@ -21,6 +21,19 @@ Window {
 
         plugin: Plugin {
             name: "mymap" //"esri" "mapbox" "osm" "here"
+
+            //传递给插件的参数
+            PluginParameter {
+                name: "mapPath"
+                value: applicationDirPath+"/dianzi_gaode_ArcgisServerTiles/_alllayers"
+            }
+
+            PluginParameter {
+                name: "format"
+                value: "png"
+            }
         }
+
+        //MapParameter { }
     }
 }
